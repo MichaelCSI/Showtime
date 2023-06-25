@@ -6,18 +6,15 @@ module.exports = {
             textColor: {
                 primary: '#fffff0',
                 secondary: '#000000',
-                tertiary: '#d3d3d3'
+                tertiary: '#d3d3d3',
+                goldOakland: '#fbc901'
             },
             colors: {
-                bg1: '#2e8bc0',
-                bg2: '#145da0',
-                bg3: '#0c2d48',
-                bg4: '#000000',
-                bg5: '#111111',
-                bg6: '#222222',
-                bg7: '#01260c',
-                bg8: '#013a12',
-                bg9: '#014d18',
+                bg1: '#01260c',
+                bg2: '#013a12',
+                bg3: '#014d18',
+                gold: '#b59410',
+                ivory: '#fffff0'
             }
         }
     },

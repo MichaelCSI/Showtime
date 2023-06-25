@@ -6,8 +6,8 @@ import { Scatter } from 'react-chartjs-2'
 
 Chart.register(CategoryScale)
 Chart.defaults.backgroundColor = '#9BD0F5'
-Chart.defaults.borderColor = '#ffffff'
-Chart.defaults.color = '#ffffff'
+Chart.defaults.borderColor = '#fffff0'
+Chart.defaults.color = '#fffff0'
 
 export default function ScatterGraph(props) {
     const [importData, setImportData] = useState([])
@@ -40,17 +40,19 @@ export default function ScatterGraph(props) {
                 (item) => item['Team'] + ', ' + item['Year'] + ': '
             )
 
+            const oakGold = '#fbc901'
+
             const scatterColors = importData.map(
                 (item) => {
                     const value = parseInt(item['Playoffs'])
                     if(value === 0){
-                        return 'rgb(255, 99, 132)'
+                        return '#fffff0'
                     } else{
-                        return 'rgb(255, 255, 255)'
+                        return oakGold
                     }
                 }
             )
-            const bgColor = props.usePlayoffColors ? scatterColors : 'rgb(255, 99, 132)'
+            const bgColor = props.usePlayoffColors ? scatterColors : oakGold
             setGraphData({
                 datasets: [
                     {
@@ -62,7 +64,7 @@ export default function ScatterGraph(props) {
                     },
                     {
                         label: 'Playoff teams',
-                        backgroundColor: 'rgb(255, 255, 255)',
+                        backgroundColor: oakGold,
                         borderColor: '#222222'
                     }
                 ]
@@ -93,13 +95,13 @@ export default function ScatterGraph(props) {
                     data={graphData}
                     options={{
                         plugins: {
-                            title: {
-                                display: true,
-                                text: props.title,
-                                font: {
-                                    size: 18
-                                }
-                            },
+                            // title: {
+                            //     display: false,
+                            //     text: props.title,
+                            //     font: {
+                            //         size: 18
+                            //     }
+                            // },
                             legend: {
                                 display: true,
                                 onClick: () => {}

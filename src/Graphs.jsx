@@ -28,7 +28,7 @@ export default function Graphs() {
     return (
         <>
             <h1 className="grid place-items-center text-3xl text-primary">
-                Analysis of stats vs runs scored
+                Stats vs Runs Scored
             </h1>
             <div className="my-[2vh] grid w-[100vw] place-items-center">
                 <Select
@@ -74,7 +74,7 @@ export default function Graphs() {
                 )}
             </div>
             <h1 className="grid place-items-center text-3xl text-primary">
-                Analysis of runs vs wins
+                Runs vs Wins
             </h1>
             <div className="my-[2vh] grid w-[100vw] place-items-center">
                 <Select
