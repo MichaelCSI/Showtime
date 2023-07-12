@@ -10,21 +10,9 @@ Chart.defaults.borderColor = '#fffff0'
 Chart.defaults.color = '#fffff0'
 
 export default function ScatterGraph(props) {
-    const [importData, setImportData] = useState([])
     const [graphData, setGraphData] = useState(false)
 
-    // Fetch initial data
-    useEffect(() => {
-        fetch('./datasets/baseball.csv')
-            .then((response) => response.text())
-            .then((csvData) => {
-                const jsonArray = csv.toObjects(csvData)
-                setImportData(jsonArray)
-            })
-            .catch((error) => {
-                console.error('Error:', error)
-            })
-    }, [])
+    const importData = props.data
 
     // Get graph data
     useEffect(() => {

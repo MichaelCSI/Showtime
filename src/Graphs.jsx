@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import { makeStyles } from '@mui/styles'
 
-export default function Graphs() {
+export default function Graphs(props) {
     const [runsGraph, setRunsGraph] = useState(0)
     const handleRunsChange = (event) => {
         setRunsGraph(event.target.value)
@@ -57,6 +57,7 @@ export default function Graphs() {
                         }}
                         pointTitles={{ x: ' on base, ', y: ' runs scored' }}
                         usePlayoffColors={true}
+                        data={props.data}
                     />
                 )}
                 {statsGraph === 1 && (
@@ -70,6 +71,7 @@ export default function Graphs() {
                         }}
                         pointTitles={{ x: ' slugging, ', y: ' runs scored' }}
                         usePlayoffColors={true}
+                        data={props.data}
                     />
                 )}
             </div>
@@ -97,6 +99,7 @@ export default function Graphs() {
                         axesTitles={{ x: 'Runs Allowed', y: 'Wins' }}
                         pointTitles={{ x: ' runs allowed, ', y: ' wins' }}
                         usePlayoffColors={true}
+                        data={props.data}
                     />
                 )}
                 {runsGraph === 1 && (
@@ -107,6 +110,7 @@ export default function Graphs() {
                         axesTitles={{ x: 'Runs Scored', y: 'Wins' }}
                         pointTitles={{ x: ' runs scored, ', y: ' wins' }}
                         usePlayoffColors={true}
+                        data={props.data}
                     />
                 )}
                 {runsGraph === 2 && (
@@ -119,6 +123,7 @@ export default function Graphs() {
                         axesTitles={{ x: 'Run Difference', y: 'Wins' }}
                         pointTitles={{ x: ' run difference, ', y: ' wins' }}
                         usePlayoffColors={true}
+                        data={props.data}
                     />
                 )}
             </div>

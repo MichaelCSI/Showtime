@@ -1,6 +1,24 @@
 import Graphs from './Graphs.jsx'
+import Models from './Models.jsx'
+import csv from 'jquery-csv'
+import { useState, useEffect } from 'react'
 
 export default function App() {
+    const [importData, setImportData] = useState([])
+
+    // Fetch initial data
+    useEffect(() => {
+        fetch('./datasets/baseball.csv')
+            .then((response) => response.text())
+            .then((csvData) => {
+                const jsonArray = csv.toObjects(csvData)
+                setImportData(jsonArray)
+            })
+            .catch((error) => {
+                console.error('Error:', error)
+            })
+    }, [])
+
     return (
         <div className="h-[100vh] overflow-y-scroll bg-gradient-to-br from-bg1 via-bg2 to-bg3">
             <div className="mt-[5vh] grid h-[20vh] place-items-center ">
@@ -14,16 +32,18 @@ export default function App() {
                 />
             </div>
             <Info />
-            <Graphs />
+            <Graphs data={importData} />
+            <Models data={importData} />
+            <div className='h-[10vh]'/>
         </div>
     )
 }
 
 function Info() {
     return (
-        <div className="mx-[5vw] gap-x-[5vw] flex w-[90vw] h-[90vh] flex-col items-center md:flex-row">
-            <div className="text-base leading-7 md:text-lg w-[40vw]">
-                <div className="flex items-center gap-x-5 w-[40vw]">
+        <div className="mx-[5vw] flex h-[90vh] w-[90vw] flex-col items-center gap-x-[5vw] md:flex-row">
+            <div className="w-[40vw] text-base leading-7 md:text-lg">
+                <div className="flex w-[40vw] items-center gap-x-5">
                     <h1 className="mb-2 text-xl font-semibold text-goldOakland">
                         Background Info
                     </h1>
@@ -50,7 +70,7 @@ function Info() {
             <img
                 src="./images/movie.jpeg"
                 alt=""
-                className="rounded-lg w-[40vw] mt-[7vh] ml-[5vw]"
+                className="ml-[5vw] mt-[7vh] w-[40vw] rounded-lg"
             />
         </div>
     )
