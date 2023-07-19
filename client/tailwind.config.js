@@ -5,16 +5,12 @@ module.exports = {
         extend: {
             textColor: {
                 primary: '#fffff0',
-                secondary: '#000000',
-                tertiary: '#d3d3d3',
-                goldOakland: '#fbc901'
+                secondary: '#000000'
             },
             colors: {
-                bg1: '#01260c',
-                bg2: '#013a12',
-                bg3: '#014d18',
-                gold: '#b59410',
-                ivory: '#fffff0'
+                bg1: '#aaaaaa',
+                bg2: '#cccccc',
+                bg3: '#ffffff',
             }
         }
     },
