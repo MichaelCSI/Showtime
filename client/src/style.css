@@ -14,6 +14,6 @@ body,
 
 @layer components {
     .btn-primary {
-        @apply z-10 rounded-full bg-gray-50 px-4 py-1.5 text-xs font-medium text-gray-600 transition duration-200 hover:-translate-y-1;
+        @apply -ml-1 z-10 rounded-full px-6 py-2 text-center text-sm font-medium text-gray-600 transition duration-200 hover:scale-105;
     }
 }

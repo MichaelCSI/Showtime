@@ -1,40 +1,40 @@
-import { useState, useEffect } from 'react'
 import socketIO from 'socket.io-client'
+import Chat from './Chat.jsx'
+import Stream from './Stream.jsx'
 
 export default function App() {
-    const [messages, setMessages] = useState([])
     const socket = socketIO.connect('http://localhost:4000')
+    const colors = [
+        '#FF0000',
+        '#00FF00',
+        '#7777FF',
+        '#FFFF00',
+        '#FF00FF',
+        '#00FFFF',
+        '#FFA500',
+        '#FFC0CB',
+        '#FFD700'
+    ]
+    const color = colors[Math.floor(Math.random() * colors.length)]
 
-    const sendMsg = () => {
-        socket.emit('message', {
-            text: 'Testing',
-            name: 'Big Mike',
-            id: `${socket.id}${Math.random()}`,
+    // let username = prompt('Please enter your name')
+    let username = null
+
+    socket.on('connect', () => {
+        socket.emit('newUser', {
+            username: username,
             socketID: socket.id
         })
-    }
-
-    useEffect(() => {
-        socket.on('messageResponse', (data) => setMessages([...messages, data]))
-    }, [socket, messages])
+    })
 
     return (
-        <div className="from-bg1 via-bg2 to-bg3 h-[100vh] overflow-y-scroll bg-gradient-to-br">
-            <div className="mt-[5vh] grid h-[20vh] place-items-center ">
-                <h1 className="text-secondary mb-[5vh] text-5xl">
-                    Theater Online
-                </h1>
+        <div className="flex h-[100vh] items-center overflow-y-scroll bg-black">
+            <div className="from-bg4 via-bg5 to-bg6 relative h-[100vh] w-[30vw] overflow-y-scroll rounded-lg bg-gradient-to-br">
+                <Chat socket={socket} color={color} username={username} />
             </div>
-            <button
-                className="btn-primary rounded-full px-4 py-1.5 text-center text-gray-600 hover:bg-blue-200"
-                onClick={sendMsg}
-            >
-                Send
-            </button>
-            {messages.map((msg, index) => {
-                const top = 'mt-'+index
-                return <div className={`${top}`}>msg</div>
-            })}
+            <div className="relative h-[100vh] w-[70vw]">
+                <Stream socket={socket} />
+            </div>
         </div>
     )
 }
