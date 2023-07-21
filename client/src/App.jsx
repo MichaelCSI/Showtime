@@ -18,7 +18,7 @@ export default function App() {
     const color = colors[Math.floor(Math.random() * colors.length)]
 
     // let username = prompt('Please enter your name')
-    let username = null
+    let username = Math.random().toString().substring(0, 4)
 
     socket.on('connect', () => {
         socket.emit('newUser', {
@@ -29,10 +29,10 @@ export default function App() {
 
     return (
         <div className="flex h-[100vh] items-center overflow-y-scroll bg-black">
-            <div className="from-bg4 via-bg5 to-bg6 relative h-[100vh] w-[30vw] overflow-y-scroll rounded-lg bg-gradient-to-br">
+            <div className="from-bg4 via-bg5 to-bg6 relative h-[100vh] w-[26vw] overflow-y-scroll rounded-lg bg-gradient-to-br">
                 <Chat socket={socket} color={color} username={username} />
             </div>
-            <div className="relative h-[100vh] w-[70vw]">
+            <div className="relative h-[100vh] w-[74vw]">
                 <Stream socket={socket} />
             </div>
         </div>
