@@ -27,13 +27,15 @@ export default function App() {
         })
     })
 
+    const liveTime = new Date().getTime() + 15000
+
     return (
         <div className="flex h-[100vh] items-center overflow-y-scroll bg-black">
             <div className="from-bg4 via-bg5 to-bg6 relative h-[100vh] w-[26vw] overflow-y-scroll rounded-lg bg-gradient-to-br">
                 <Chat socket={socket} color={color} username={username} />
             </div>
             <div className="relative h-[100vh] w-[74vw]">
-                <Stream socket={socket} />
+                <Stream socket={socket} liveTime={liveTime} />
             </div>
         </div>
     )
