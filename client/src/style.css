@@ -16,4 +16,7 @@ body,
     .btn-primary {
         @apply -ml-1 z-10 rounded-full text-center text-sm font-medium text-gray-600 transition duration-200 hover:scale-105;
     }
+    .bg-hover {
+        @apply bg-gray-500 rounded-md bg-opacity-0 hover:bg-opacity-50 p-0.5
+    }
 }

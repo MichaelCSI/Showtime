@@ -9,9 +9,11 @@ export default function Chat(props) {
     const [autoScroll, setAutoScroll] = useState(true)
     const [showEmoji, setShowEmoji] = useState(false)
     const [messageTooLong, setMessageTooLong] = useState(false)
-    const socket = props.socket
+
     const chatBoxRef = useRef(null)
     const messageInputRef = useRef(null)
+
+    const socket = props.socket
 
     // Send a message to the chat
     const sendMsg = () => {
@@ -33,7 +35,7 @@ export default function Chat(props) {
         setShowEmoji(false)
     }
 
-    // Update chat with new message
+    // Update chat with new messages - show up to 50
     socket.on('messageResponse', (data) => {
         setMessages([
             ...messages.slice(Math.max(messages.length - 50, 0)),
@@ -41,7 +43,7 @@ export default function Chat(props) {
         ])
     })
 
-    // Handle enter click for chat
+    // Handle enter click for sending chat message
     const handleInputKeyPress = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault()
@@ -49,17 +51,15 @@ export default function Chat(props) {
         }
     }
 
-    // Get emoji code
+    // Input emojis into chat box - (issue with country flags)
     const addEmoji = (e) => {
-        const sym = e.unified.split('_')
-        const codeArray = []
-        sym.forEach((el) => codeArray.push('0x' + el))
-        let emoji = String.fromCodePoint(...codeArray)
+        const emojiCode = e.unified
+        const emoji = String.fromCodePoint(parseInt('0x' + emojiCode, 16))
         messageInputRef.current.value = messageInputRef.current.value + emoji
     }
 
+    // Handle auto scroll
     useEffect(() => {
-        // If user is at bottom of the chat, auto scroll
         if (autoScroll) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight
         }
@@ -68,18 +68,23 @@ export default function Chat(props) {
     return (
         <>
             <div
-                className="relative h-[80vh] overflow-scroll"
+                className="relative h-[80vh] w-[22vw] overflow-scroll"
                 id="chatBox"
                 ref={chatBoxRef}
             >
+                <div className="text-primary ml-2 mt-1">
+                    Welcome to Theater Online!
+                </div>
                 {messages.map((msg) => (
                     <div
                         key={Math.random() + msg.text}
-                        className="mb-2 ml-2 flex"
+                        className="mb-2 ml-2 flex break-all"
                     >
                         <div style={{ color: msg.color }}>
                             {msg.name + ':'}
-                            <span className="text-primary ml-2">{msg.text}</span>
+                            <span className="text-primary ml-2">
+                                {msg.text}
+                            </span>
                         </div>
                     </div>
                 ))}
@@ -93,6 +98,8 @@ export default function Chat(props) {
                             emojiButtonSize={28}
                             onEmojiSelect={addEmoji}
                             maxFrequentRows={0}
+                            previewPosition="none"
+                            noCountryFlags={true}
                         />
                     </div>
                 )}
@@ -111,7 +118,7 @@ export default function Chat(props) {
                             messageInputRef.current.focus()
                             setShowEmoji(!showEmoji)
                         }}
-                        className="text-primary text-2xl transition duration-200 hover:scale-110 hover:cursor-pointer hover:text-blue-600"
+                        className="text-primary text-2xl transition duration-200 hover:scale-105 hover:cursor-pointer hover:text-blue-600"
                     >
                         <BsEmojiSmile />
                     </div>
