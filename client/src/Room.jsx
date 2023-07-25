@@ -58,6 +58,7 @@ export default function Room(props) {
                     socket={props.socket}
                     color={color}
                     username={props.username}
+                    room={props.room}
                 />
             </div>
             {chatHidden && (

@@ -17,8 +17,9 @@ export default function Stream(props) {
 
     const socket = props.socket
     socket.on('newUserResponse', (users) => {
-        setNumUsers(users.length)
+        setNumUsers(Object.keys(users).length)
     })
+
 
     const liveTime = props.liveTime
 

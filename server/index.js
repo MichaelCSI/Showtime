@@ -11,23 +11,45 @@ const socketIO = require('socket.io')(http, {
 })
 
 app.use(cors())
-let users = []
+let usersByRoom = {}
 
 socketIO.on('connection', (socket) => {
-    console.log(`${socket.id} user just connected!`)
-    socket.on('message', (data) => {
-        socketIO.emit('messageResponse', data)
+
+    socket.on('joinRoom', (data) => {
+        const { room, username } = data
+        console.log(`${username} joined ${room} on socket ${socket.id}`)
+
+        // Populate dictionary with users for each room
+        if (!usersByRoom[room]) {
+            usersByRoom[room] = []
+        }
+        usersByRoom[room].push({ socketID: socket.id, username: username })
+        socket.join(room)
+        socketIO.to(room).emit('newUserResponse', usersByRoom[room])
     })
-    
-    socket.on('newUser', (data) => {
-        users.push(data)
-        socketIO.emit('newUserResponse', users)
+
+    socket.on('message', (data) => {
+        const { room } = data
+        socketIO.to(room).emit('messageResponse', data)
     })
 
     socket.on('disconnect', () => {
         console.log('A user disconnected')
-        users = users.filter((user) => user.socketID !== socket.id)
-        socketIO.emit('newUserResponse', users)
+
+        // Find the room to which the user belongs
+        let userRoom
+        for (const room in usersByRoom) {
+            if (usersByRoom[room].some((user) => user.socketID === socket.id)) {
+                userRoom = room
+                break
+            }
+        }
+        // Remove the user from the respective room
+        usersByRoom[userRoom] = usersByRoom[userRoom].filter(
+            (user) => user.socketID !== socket.id
+        )
+        // Emit the updated user list for that room
+        socketIO.to(userRoom).emit('newUserResponse', usersByRoom[userRoom])
         socket.disconnect()
     })
 })

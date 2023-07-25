@@ -25,6 +25,7 @@ export default function Chat(props) {
         messageInput.style.borderColor = '#4a5568'
         setMessageTooLong(false)
         socket.emit('message', {
+            room: props.room,
             text: messageInput.value,
             name: props.username,
             id: `${socket.id}${Math.random()}`,
