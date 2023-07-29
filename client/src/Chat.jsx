@@ -19,7 +19,7 @@ export default function Chat(props) {
     const sendMsg = () => {
         if (!messageInput.value || messageInput.value.length > 330) {
             messageInput.style.borderColor = '#dc2626'
-            setMessageTooLong(true)
+            messageInput.value.length > 330 ? setMessageTooLong('Message too long') : setMessageTooLong('Please write a message')
             return
         }
         messageInput.style.borderColor = '#4a5568'
@@ -91,6 +91,12 @@ export default function Chat(props) {
                 ))}
             </div>
             <div className="absolute bottom-1 left-4 mb-4 flex flex-col gap-y-4">
+                {messageTooLong && (
+                    <div className="flex h-[1vh] flex-row items-center justify-center gap-x-2 text-xl text-red-600">
+                        <BiErrorCircle />
+                        <div className="text-base">{messageTooLong}</div>
+                    </div>
+                )}
                 {showEmoji && (
                     <div>
                         <Picker
@@ -109,7 +115,7 @@ export default function Chat(props) {
                         id="messageInput"
                         ref={messageInputRef}
                         type="text"
-                        className="w-[20vw] rounded-lg border-2 border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-600 focus:outline-none focus:ring-blue-600"
+                        className="bg-gray700 focus:border-sky400 focus:ring-sky400 w-[20vw] rounded-lg border-2 border-gray-600 p-2.5 text-sm text-white placeholder-gray-400 focus:outline-none"
                         placeholder="Send a chat"
                         onKeyPress={handleInputKeyPress}
                         autoComplete="off"
@@ -119,30 +125,24 @@ export default function Chat(props) {
                             messageInputRef.current.focus()
                             setShowEmoji(!showEmoji)
                         }}
-                        className="text-primary text-2xl transition duration-200 hover:scale-105 hover:cursor-pointer hover:text-blue-600"
+                        className="text-primary hover:text-sky400 text-2xl transition duration-200 hover:scale-105 hover:cursor-pointer"
                     >
                         <BsEmojiSmile />
                     </div>
                 </div>
                 <div className="ml-1 flex flex-row items-center gap-x-5">
                     <button
-                        className="btn-primary text-primary right-1 bg-gray-700 px-4 py-1.5 hover:bg-blue-600"
+                        className="btn-primary text-primary bg-gray700 hover:bg-sky400 right-1 px-4 py-1.5"
                         onClick={() => setAutoScroll(!autoScroll)}
                     >
                         Auto Scroll: {autoScroll ? 'on' : 'off'}
                     </button>
                     <button
-                        className="btn-primary text-primary bg-gray-700 px-6 py-2 hover:bg-blue-600"
+                        className="btn-primary text-primary bg-gray700 hover:bg-sky400 px-6 py-2"
                         onClick={sendMsg}
                     >
                         Send
                     </button>
-                    {messageTooLong && (
-                        <div className="flex flex-row items-center gap-x-2 text-xl text-red-600">
-                            <BiErrorCircle />
-                            <div className="text-base">Msg too long</div>
-                        </div>
-                    )}
                 </div>
             </div>
         </>

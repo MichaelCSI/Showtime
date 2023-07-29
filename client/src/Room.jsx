@@ -5,6 +5,7 @@ import { BsArrowBarLeft } from 'react-icons/bs'
 import { BsArrowBarRight } from 'react-icons/bs'
 
 export default function Room(props) {
+    // Different colors for username text
     const colors = [
         '#FF0000',
         '#00FF00',
@@ -17,7 +18,6 @@ export default function Room(props) {
         '#FFD700'
     ]
     const color = colors[Math.floor(Math.random() * colors.length)]
-    const liveTime = new Date().getTime() + 5000
 
     const [chatHidden, setChatHidden] = useState(false)
     const chatRef = useRef(null)
@@ -45,7 +45,7 @@ export default function Room(props) {
     return (
         <div className="flex h-[100vh] w-[100vw] items-center overflow-y-scroll bg-black">
             <div
-                className="from-bg4 via-bg5 to-bg6 relative left-0 h-[100vh] w-[26vw] overflow-y-scroll rounded-lg border-r-2 border-gray-700 bg-gradient-to-br"
+                className="from-bgGray1 via-bgGray2 to-bgGray3 relative left-0 h-[100vh] w-[26vw] overflow-y-scroll rounded-lg border-r-2 border-gray700 bg-gradient-to-br"
                 ref={chatRef}
             >
                 <div
@@ -72,7 +72,7 @@ export default function Room(props) {
             <div className="relative h-[100vh] w-[74vw]" ref={streamRef}>
                 <Stream
                     socket={props.socket}
-                    liveTime={liveTime}
+                    movieInfo={props.movieInfo}
                 />
             </div>
         </div>
