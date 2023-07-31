@@ -23,7 +23,13 @@ export default function Stream(props) {
     const socket = props.socket
     socket.on('newUserResponse', (users) => {
         setNumUsers(Object.keys(users).length)
+        // console.log(users)
     })
+
+    const leaveRoom = () => {
+        navigate('/')
+        socket.disconnect()
+    }
 
     const liveTime = props.movieInfo.liveTime
 
@@ -71,14 +77,15 @@ export default function Stream(props) {
         <>
             {goLive ? (
                 <div className="flex flex-col items-center justify-center">
-                    {isLoading ? (
+                    {isLoading && (
                         <div className="text-primary absolute top-[45vh] text-xl">
                             Movie is loading...
                         </div>
-                    ) : null}
+                    )}
                     {movieOver ? (
-                        <div className="text-primary mb-[2vh] h-[93vh] text-xl">
-                            Movie is over
+                        <div className="text-primary mb-[2vh] h-[93vh] text-xl flex items-center justify-center text-center">
+                            {props.movieInfo.title + ' is over,'}<br></br>
+                            {'stream ending at 24 hour mark'}
                         </div>
                     ) : (
                         <video
@@ -105,7 +112,7 @@ export default function Stream(props) {
             <div className="mb-[3vh] ml-1 flex h-[2vh] flex-row items-center gap-x-3 text-red-400">
                 <button
                     className="bg-hover text-2xl transition duration-200 hover:scale-105"
-                    onClick={() => navigate('/')}
+                    onClick={leaveRoom}
                 >
                     <BsHouseFill />
                 </button>

@@ -1,3 +1,4 @@
+import { BiTime } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import titles from './titles.js'
 
@@ -18,12 +19,14 @@ export default function Home() {
     }))
     // If a movie's showing time is old (5hrs), move the movie to the end of the list
     schedule.forEach((showing, index) => {
-        if(showing.time + 18_000_000 < new Date()){
+        const now = new Date()
+        // Push showing back X days until its no longer in the past
+        while (showing.time.getTime() + 86_400_000 < now.getTime()) {
             showing.time = showing.time.addDays(schedule.length)
-            schedule.splice(index, 1)
-            schedule.push(showing)
         }
     })
+    // Re-order schedule based on dates
+    schedule.sort((show1, show2) => show1.time.getTime() - show2.time.getTime())
 
     const formatDate = (date) => {
         const timeValues = date.split(' ')
@@ -46,7 +49,7 @@ export default function Home() {
     }
 
     return (
-        <div className="flex h-[100vh] w-[100vw] flex-wrap items-center justify-center gap-x-10 gap-y-10 overflow-y-scroll from-bgGray1 via-bgGray2 to-bgGray3 bg-gradient-to-br">
+        <div className="from-bgGray1 via-bgGray2 to-bgGray3 flex h-[100vh] w-[100vw] flex-wrap items-center justify-center gap-x-10 gap-y-10 overflow-y-scroll bg-gradient-to-br">
             <div className="text-primary mt-10 h-[10vh] w-full text-center text-3xl">
                 Theater Online
             </div>
@@ -57,7 +60,7 @@ export default function Home() {
                 return (
                     <div
                         key={movie.title}
-                        className="relative flex h-[55vh] w-[40vw] flex-row items-center justify-center border-2 border-sky400 rounded-lg"
+                        className="border-sky400 relative flex h-[55vh] w-[40vw] flex-row items-center justify-center rounded-lg border-2"
                     >
                         <div className="h-[280px] w-[180px]">
                             <img
@@ -65,8 +68,8 @@ export default function Home() {
                                 src={movie.img}
                             />
                         </div>
-                        <div className="flex flex-col items-center justify-center gap-y-2 -mt-16">
-                            <div className="text-primary w-[20vw] px-[2vw] text-center mb-16">
+                        <div className="-mt-16 flex flex-col items-center justify-center gap-y-2">
+                            <div className="text-primary mb-16 w-[20vw] px-[2vw] text-center">
                                 {movie.title}
                             </div>
                             <button

@@ -14,17 +14,16 @@ app.use(cors())
 let usersByRoom = {}
 
 socketIO.on('connection', (socket) => {
-
     socket.on('joinRoom', (data) => {
-        const { room, username } = data
-        console.log(`${username} joined ${room} on socket ${socket.id}`)
+        const { room } = data
+        console.log(`A user joined ${room} on socket ${socket.id}`)
+        socket.join(room)
 
         // Populate dictionary with users for each room
         if (!usersByRoom[room]) {
             usersByRoom[room] = []
         }
-        usersByRoom[room].push({ socketID: socket.id, username: username })
-        socket.join(room)
+        usersByRoom[room].push({ socketID: socket.id })
         socketIO.to(room).emit('newUserResponse', usersByRoom[room])
     })
 
@@ -44,10 +43,13 @@ socketIO.on('connection', (socket) => {
                 break
             }
         }
+
         // Remove the user from the respective room
-        usersByRoom[userRoom] = usersByRoom[userRoom].filter(
-            (user) => user.socketID !== socket.id
-        )
+        if (usersByRoom[userRoom]) {
+            usersByRoom[userRoom] = usersByRoom[userRoom].filter(
+                (user) => user.socketID !== socket.id
+            )
+        }
         // Emit the updated user list for that room
         socketIO.to(userRoom).emit('newUserResponse', usersByRoom[userRoom])
         socket.disconnect()

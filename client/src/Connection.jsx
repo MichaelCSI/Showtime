@@ -7,24 +7,13 @@ export default function Connection(props) {
     const location = useLocation()
     const movieInfo = location.state
 
-    const username = Math.random().toString().substring(0, 4) + ' man'
     const socket = socketIO.connect('http://localhost:4000')
+
     useEffect(() => {
         socket.emit('joinRoom', {
-            room: props.room,
-            username: username
+            room: props.room
         })
-        return () => {
-            socket.disconnect()
-        }
     }, [])
 
-    return (
-        <Room
-            socket={socket}
-            username={username}
-            room={props.room}
-            movieInfo={movieInfo}
-        />
-    )
+    return <Room socket={socket} room={props.room} movieInfo={movieInfo} />
 }
