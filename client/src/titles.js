@@ -28,5 +28,35 @@ export default [
         title: 'The Phantom of the Opera (1925)',
         url: 'https://ia600301.us.archive.org/21/items/ThePhantomoftheOpera/Phantom_of_the_Opera_512kb.mp4',
         img: 'https://m.media-amazon.com/images/M/MV5BNDk4MDM1NTI5MV5BMl5BanBnXkFtZTgwMDkyMDc2MTE@._V1_.jpg'
+    },
+    {
+        title: `Charlie Chaplin's "The Pawnshop" (1916)`,
+        url: 'https://publicdomainmovie.net/movie.php?id=CC_1916_10_02_ThePawnshop&type=.mp4',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/%27The_Pawnshop%27.jpg/500px-%27The_Pawnshop%27.jpg'
+    },
+    {
+        title: 'Oliver Twist (1933)',
+        url: 'https://ia802609.us.archive.org/15/items/oliver_twist/oliver_twist_512kb.mp4',
+        img: 'https://m.media-amazon.com/images/M/MV5BYWU4ZGQ4YjgtOWZkNC00MTYzLTkyYjYtZTcyNDNmMzVlYTZhXkEyXkFqcGdeQXVyMzg1ODEwNQ@@._V1_.jpg'
+    },
+    {
+        title: 'Brideless Groom (1947)',
+        url: 'https://publicdomainmovie.net/movie.php?id=brideless_groom&type=.mp4',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Bridelessgroom_1sht.jpg'
+    },
+    {
+        title: 'The most Dangerous Game (1932)',
+        url: 'https://ia801609.us.archive.org/10/items/TheMostDangerousGame/TheMostDangerousGame_512kb.mp4',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/3/34/Most_Dangerous_Game_poster.jpg'
+    },
+    {
+        title: 'Cops (1922)',
+        url: 'https://ia800308.us.archive.org/5/items/CopsbusterKeaton/cops_512kb.mp4',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Cops_1922_poster.jpg'
+    },
+    {
+        title: 'Popeye the Sailor meets Sinbad the Sailor (1936)',
+        url: 'https://ia800308.us.archive.org/4/items/Popeye_meetsSinbadtheSailor/Popeye_meetsSinbadtheSailor_512kb.mp4',
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Popeye_Meets_Sinbad.PNG/500px-Popeye_Meets_Sinbad.PNG'
     }
 ]

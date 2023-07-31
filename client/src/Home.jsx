@@ -49,60 +49,78 @@ export default function Home() {
     }
 
     return (
-        <div className="from-bgGray1 via-bgGray2 to-bgGray3 flex h-[100vh] w-[100vw] flex-wrap items-center justify-center gap-x-10 gap-y-10 overflow-y-scroll bg-gradient-to-br">
-            <div className="text-primary mt-10 h-[10vh] w-full text-center text-3xl">
-                Theater Online
-            </div>
-            {schedule.map(({ movie, time }, index) => {
-                // Only able to enter rooms within 1 day of showing time
-                const timeUntilLive = time.getTime() - new Date().getTime()
-
-                return (
-                    <div
-                        key={movie.title}
-                        className="border-sky400 relative flex h-[55vh] w-[40vw] flex-row items-center justify-center rounded-lg border-2"
-                    >
-                        <div className="h-[280px] w-[180px]">
-                            <img
-                                className="h-full w-full object-fill"
-                                src={movie.img}
-                            />
-                        </div>
-                        <div className="-mt-16 flex flex-col items-center justify-center gap-y-2">
-                            <div className="text-primary mb-16 w-[20vw] px-[2vw] text-center">
-                                {movie.title}
-                            </div>
-                            <button
-                                className="rounded-lg p-2 transition duration-200 hover:scale-105 hover:cursor-pointer"
-                                style={{
-                                    background:
-                                        timeUntilLive < 86400000
-                                            ? '#38bdf8'
-                                            : '#9ca3af'
-                                }}
-                                onClick={() =>
-                                    // Set 'props' with location state for each room
-                                    navigate(`/room${index}`, {
-                                        state: {
-                                            title: movie.title,
-                                            url: movie.url,
-                                            liveTime: time.getTime()
-                                        }
-                                    })
-                                }
-                                disabled={
-                                    timeUntilLive < 86400000 ? false : true
-                                }
-                            >
-                                Watch Live
-                            </button>
-                            <div className="text-primary w-[10vw] text-center">
-                                {formatDate(time.toString())}
-                            </div>
-                        </div>
+        <div className="from-bgGray1 via-bgGray2 to-bgGray3 h-[100vh] w-[100vw] overflow-y-scroll bg-gradient-to-br">
+            <div className="ml-10 mt-10 flex flex-row">
+                <div className="text-primary w-[40vw]">
+                    <div className="text-sky400 h-[10vh] font-serif text-4xl">
+                        Theater Online
                     </div>
-                )
-            })}
+                    <div className="ml-2 text-xl">
+                        Theater Online is a place to watch live movies and
+                        shorts that have entered the public domain. Each movie
+                        has a chat room that opens 24 hours before and closes 24
+                        hours after the movie goes live.
+                        <br></br>
+                        <br></br>Enjoy!
+                    </div>
+                </div>
+                <div className="text-primary ml-[30vw]">
+                    Have a movie suggestion?
+                </div>
+            </div>
+            <div className="ml-[4vw] mt-[5vh] flex flex-row flex-wrap items-center justify-center">
+                {schedule.map(({ movie, time }, index) => {
+                    // Only able to enter rooms within 1 day of showing time
+                    const now = new Date()
+                    const timeUntilLive = time.getTime() - now.getTime()
+
+                    return (
+                        <div
+                            key={movie.title}
+                            className="relative flex h-[50vh] w-[30vw] flex-row items-center justify-center"
+                        >
+                            <div className="h-[256px] w-[180px]">
+                                <img
+                                    className="h-full w-full rounded-sm object-fill"
+                                    src={movie.img}
+                                />
+                            </div>
+                            <div className="-ml-8 flex flex-col items-center justify-center gap-y-2">
+                                <div className="text-primary mb-8 w-[20vw] px-[2vw] text-center">
+                                    {movie.title}
+                                </div>
+                                <button
+                                    className="rounded-lg p-2 transition duration-200 hover:scale-105 hover:cursor-pointer"
+                                    style={{
+                                        background:
+                                            timeUntilLive < 86_400_000
+                                                ? '#38bdf8'
+                                                : '#9ca3af'
+                                    }}
+                                    onClick={() =>
+                                        // Set 'props' with location state for each room
+                                        navigate(`/room${index}`, {
+                                            state: {
+                                                title: movie.title,
+                                                url: movie.url,
+                                                liveTime: time.getTime()
+                                            }
+                                        })
+                                    }
+                                    disabled={
+                                        timeUntilLive < 86_400_000 ? false : true
+                                    }
+                                >
+                                    Watch Live
+                                </button>
+                                <div className="text-primary w-[10vw] text-center">
+                                    {formatDate(time.toString())}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }
