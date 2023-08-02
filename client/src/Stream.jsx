@@ -85,7 +85,7 @@ export default function Stream(props) {
                     {movieOver ? (
                         <div className="text-primary mb-[2vh] h-[93vh] text-xl flex items-center justify-center text-center">
                             {props.movieInfo.title + ' is over,'}<br></br>
-                            {'stream ending at 24 hour mark'}
+                            {'stream ending soon'}
                         </div>
                     ) : (
                         <video
