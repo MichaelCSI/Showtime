@@ -12,11 +12,25 @@ body,
     height: 100%;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.fade-in-animation {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in;
+    animation-fill-mode: forwards;
+}
+
 @layer components {
     .btn-primary {
-        @apply -ml-1 z-10 rounded-full text-center text-sm font-medium text-gray-600 transition duration-200 hover:scale-105;
+        @apply z-10 -ml-1 rounded-full text-center text-sm font-medium text-gray-600 transition duration-200 hover:scale-105;
     }
     .bg-hover {
-        @apply bg-gray-500 rounded-md bg-opacity-0 hover:bg-opacity-50 p-0.5
+        @apply rounded-md bg-gray-500 bg-opacity-0 p-0.5 hover:bg-opacity-50;
     }
 }
