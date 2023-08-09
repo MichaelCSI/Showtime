@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { AiOutlineSend } from 'react-icons/ai'
 import { AiOutlineClose } from 'react-icons/ai'
 import { BiSolidCameraMovie } from 'react-icons/bi'
+import { MdMovieEdit } from 'react-icons/md'
 
 export default function Home() {
     const navigate = useNavigate()
-    const [showMovies, setShowMovies] = useState(false)
     const [makeSuggestion, setMakeSuggestion] = useState(false)
 
     const liveTime = new Date(2023, 6, 28, 20)
@@ -61,20 +61,18 @@ export default function Home() {
 
     return (
         <div
-            className="from-bgGray1 via-bgGray2 to-bgGray3 h-[100vh] w-[100vw] overflow-y-scroll bg-gradient-to-br"
+            className="from-bgGray3 h-[100vh] w-[100vw] overflow-y-scroll bg-gradient-to-b to-sky-950"
             onClick={() => makeSuggestion && setMakeSuggestion(false)}
         >
-            {!showMovies && (
-                <>
-                    <div className="absolute h-full w-full">
-                        <img
-                            src="./theater.webp"
-                            className="h-full w-full object-fill"
-                        />
-                    </div>
-                    <div className="text-primary ml-[20vw] mt-[25vh] w-[60vw] items-center justify-center md:ml-[30vw] md:mt-[30vh] md:w-[40vw]">
-                        <div className="mb-4 flex flex-row items-center justify-center">
-                            <div className="h-[96px] w-[80px]">
+            <div
+                className={`transition duration-300 ${
+                    makeSuggestion ? 'brightness-50' : 'brightness-100'
+                }`}
+            >
+                <div className="mb-[10vh] flex flex-col items-center justify-center md:flex-row">
+                    <div className="text-primary w-[80vw] md:w-[40vw]">
+                        <div className="mb-4 flex flex-row items-center">
+                            <div className="h-[74px] w-[64px]">
                                 <img
                                     src="./clapperboard.png"
                                     className="h-full w-full object-fill"
@@ -84,112 +82,90 @@ export default function Home() {
                                 Theater Online
                             </div>
                         </div>
-                        <div className="ml-4 text-center text-xl">
-                            Theater Online is a place to watch live movies and
-                            shorts that have entered the public domain. Each
-                            movie has a chat room that opens shortly before the
-                            movie goes live and closes a couple of hours after
-                            the movie has ended.
-                            <br></br>
-                            <br></br>
-                        </div>
-                        <div className="flex flex-row items-center justify-center gap-x-10">
-                            <div className="ml-4 text-xl">Enjoy!</div>
-                            <button
-                                className="bg-sky400 z-10 -mt-1 rounded-lg p-2 transition duration-200 hover:scale-105 hover:cursor-pointer"
-                                onClick={() => setShowMovies(true)}
-                            >
-                                Browse Movies
-                            </button>
+                        <div className="ml-4 text-xl">
+                            Watch live movies that have entered the public
+                            domain! Each movie has a chat room that opens
+                            shortly before the movie goes live and closes a
+                            couple of hours after the movie has ended. Enjoy!
                         </div>
                     </div>
-                </>
-            )}
-            {showMovies && (
-                <div
-                    className={` bg-gradient-to-br transition duration-300 ${
-                        makeSuggestion ? 'brightness-50' : 'brightness-100'
-                    }`}
-                >
-                    <div className="hover:bg-sky400 z-10 ml-2 mt-2 h-[56px] w-[56px] rounded-lg transition duration-200 hover:scale-105 hover:cursor-pointer hover:bg-opacity-60">
-                        <img
-                            src="./clapperboard.png"
-                            className="h-full w-full object-fill"
-                            onClick={() => setShowMovies(false)}
-                        />
-                    </div>
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="border-sky400 ml-[5vw] mt-[8vh] flex w-[80vw] flex-col items-center justify-center gap-y-4 rounded-lg border-2 p-2 md:ml-[12vw] md:w-[36vw]">
                         <div className="text-primary text-center text-lg">
-                            Want to add a movie?
+                            There's a long list of public domain movies! If you
+                            would like to see one added, make a suggestion!
                         </div>
-                        <div
-                            className="text-sky400 underline hover:cursor-pointer"
+                        <button
+                            className="btn-primary text-primary bg-bgGray1 hover:bg-sky400 right-1 flex flex-row px-4 py-1.5 text-base"
                             onClick={() => setMakeSuggestion(true)}
                         >
-                            Make a suggestion
-                        </div>
-                    </div>
-                    <div className="mt-[5vh] flex flex-row flex-wrap items-center justify-center gap-y-8">
-                        {schedule.map(({ movie, time }, index) => {
-                            // Only able to enter rooms within 1 day of showing time
-                            const now = new Date()
-                            const liveNow =
-                                time.getTime() - now.getTime() <
-                                milliSpacing / hourSpacing
-
-                            return (
-                                <div
-                                    key={movie.title}
-                                    className="fade-in-animation relative flex h-[60vh] w-[50vw] flex-col items-center justify-center md:h-[55vh] md:w-[25vw]"
-                                    style={{
-                                        animationDelay: `${index * 0.1}s`
-                                    }}
-                                >
-                                    <div className="h-[256px] w-[180px]">
-                                        <img
-                                            className="h-full w-full rounded-sm object-fill transition duration-500 hover:scale-110 hover:cursor-pointer"
-                                            src={movie.img}
-                                            onClick={
-                                                liveNow
-                                                    ? () =>
-                                                          // Set 'props' with location state for each room
-                                                          navigate(
-                                                              `/room${index}`,
-                                                              {
-                                                                  state: {
-                                                                      title: movie.title,
-                                                                      url: movie.url,
-                                                                      liveTime:
-                                                                          time.getTime()
-                                                                  }
-                                                              }
-                                                          )
-                                                    : null
-                                            }
-                                        />
-                                    </div>
-                                    <div className="mt-4 flex w-[30vw] flex-row items-center justify-center text-center md:w-[15vw]">
-                                        {liveNow ? (
-                                            <>
-                                                <span className="animate-pulse text-red-500 mr-1 text-xl">
-                                                    <BiSolidCameraMovie />
-                                                </span>
-                                                <span className="text-sky400">
-                                                    Live Now
-                                                </span>
-                                            </>
-                                        ) : (
-                                            <div className=" text-primary h-[5vh]">
-                                                {formatDate(time.toString())}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )
-                        })}
+                            <div className="mr-1 mt-0.5 text-xl">
+                                <MdMovieEdit />
+                            </div>
+                            Submit a request
+                        </button>
                     </div>
                 </div>
-            )}
+                <div className="mt-[5vh] flex flex-row flex-wrap items-center justify-center gap-y-8">
+                    {schedule.map(({ movie, time }, index) => {
+                        // Only able to enter rooms within 1 day of showing time
+                        const now = new Date()
+                        const liveNow =
+                            time.getTime() - now.getTime() <
+                            milliSpacing / hourSpacing
+
+                        return (
+                            <div
+                                key={movie.title}
+                                className="fade-in-animation relative flex h-[60vh] w-[50vw] flex-col items-center justify-center md:h-[55vh] md:w-[25vw]"
+                                style={{
+                                    animationDelay: `${index * 0.1}s`
+                                }}
+                            >
+                                <div className="h-[256px] w-[180px]">
+                                    <img
+                                        className="h-full w-full rounded-sm object-fill transition duration-500 hover:scale-110 hover:cursor-pointer"
+                                        src={movie.img}
+                                        onClick={
+                                            liveNow
+                                                ? () =>
+                                                      // Set 'props' with location state for each room
+                                                      navigate(
+                                                          `/${movie.title}`,
+                                                          {
+                                                              state: {
+                                                                  title: movie.title,
+                                                                  url: movie.url,
+                                                                  liveTime:
+                                                                      time.getTime()
+                                                              }
+                                                          }
+                                                      )
+                                                : null
+                                        }
+                                    />
+                                </div>
+                                <div className="mt-4 flex w-[30vw] flex-row items-center justify-center text-center md:w-[15vw]">
+                                    {liveNow ? (
+                                        <>
+                                            <span className="mr-1 animate-pulse text-xl text-red-500">
+                                                <BiSolidCameraMovie />
+                                            </span>
+                                            <span className="text-sky400">
+                                                Live Now
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <div className=" text-primary h-[5vh]">
+                                            {formatDate(time.toString())}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                <div className="h-[10vh]" />
+            </div>
             {makeSuggestion && (
                 <Suggestion setMakeSuggestion={setMakeSuggestion} />
             )}

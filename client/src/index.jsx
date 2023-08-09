@@ -15,8 +15,8 @@ root.render(
                 <Route
                     key={movie.title}
                     exact
-                    path={`/room${index}`}
-                    element={<Connection room={`room${index}`} />}
+                    path={`/${movie.title}`}
+                    element={<Connection room={`${movie.title}`} />}
                 />
             ))}
         </Routes>

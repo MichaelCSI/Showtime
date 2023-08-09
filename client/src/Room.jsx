@@ -45,7 +45,7 @@ export default function Room(props) {
     return (
         <div className="flex h-[100vh] w-[100vw] items-center overflow-y-scroll bg-black">
             <div
-                className="from-bgGray1 via-bgGray2 to-bgGray3 border-gray700 relative left-0 h-[100vh] w-[26vw] overflow-y-scroll rounded-lg border-r-2 bg-gradient-to-br"
+                className="from-bgGray1 via-bgGray2 to-bgGray3 border-gray700 relative left-0 h-[100vh] w-[40vw] overflow-y-scroll rounded-lg border-r-2 bg-gradient-to-br md:w-[26vw]"
                 ref={chatRef}
             >
                 <div
@@ -64,7 +64,10 @@ export default function Room(props) {
                     <BsArrowBarRight />
                 </div>
             )}
-            <div className="relative h-[100vh] w-[74vw]" ref={streamRef}>
+            <div
+                className="relative h-[100vh] w-[60vw] md:w-[74vw]"
+                ref={streamRef}
+            >
                 <Stream socket={props.socket} movieInfo={props.movieInfo} />
             </div>
         </div>

@@ -118,7 +118,7 @@ export default function Chat(props) {
                 style={{ pointerEvents: username ? 'auto' : 'none' }}
             >
                 {!username && (
-                    <div className="border-sky400 pointer-events-auto z-10 flex h-[24vh] w-[20vw] flex-col items-center justify-center gap-y-4 rounded-lg border-2 bg-black">
+                    <div className="border-sky400 pointer-events-auto z-10 flex p-2 md:h-[24vh] h-[30vh] md:w-[20vw] w-[30vw] flex-col items-center justify-center gap-y-4 rounded-lg border-2 bg-black">
                         <div className="text-primary text-center">
                             Enter a username to chat
                         </div>
