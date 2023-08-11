@@ -97,7 +97,7 @@ export default function Chat(props) {
                 ref={chatBoxRef}
             >
                 <div className="text-primary ml-2 mt-1 border-b-2 border-gray-600">
-                    Welcome to Theater Online!
+                    Welcome to the chat room!
                 </div>
                 {messages.map((msg) => (
                     <div

@@ -69,7 +69,7 @@ export default function Home() {
                     makeSuggestion ? 'brightness-50' : 'brightness-100'
                 }`}
             >
-                <div className="mb-[10vh] flex flex-col items-center justify-center md:flex-row">
+                <div className="mb-[10vh] mt-[2vh] flex flex-col items-center justify-center md:flex-row">
                     <div className="text-primary w-[80vw] md:w-[40vw]">
                         <div className="mb-4 flex flex-row items-center">
                             <div className="h-[74px] w-[64px]">
@@ -79,14 +79,15 @@ export default function Home() {
                                 />
                             </div>
                             <div className="text-sky400 ml-2 font-serif text-4xl md:-mb-4">
-                                Theater Online
+                                Showtime
                             </div>
                         </div>
                         <div className="ml-4 text-xl">
-                            Watch live movies that have entered the public
-                            domain! Each movie has a chat room that opens
-                            shortly before the movie goes live and closes a
-                            couple of hours after the movie has ended. Enjoy!
+                            At Showtime you can watch live movies that have
+                            entered the public domain! Each movie has a chat
+                            room that opens shortly before the movie goes live
+                            and closes a couple of hours after the movie has
+                            ended. Enjoy!
                         </div>
                     </div>
                     <div className="border-sky400 ml-[5vw] mt-[8vh] flex w-[80vw] flex-col items-center justify-center gap-y-4 rounded-lg border-2 p-2 md:ml-[12vw] md:w-[36vw]">
@@ -191,12 +192,16 @@ function Suggestion(props) {
             inputElement.style.borderColor = '#4a5568'
             if (!inputValue && index === 1) {
                 inputElement.style.borderColor = '#dc2626'
-                return
             }
             inputValues[index] = inputValue
         })
+        if (!inputValues[1]) {
+            return
+        }
         const subject = 'Movie Request for: ' + inputValues[1]
-        const body = inputValues[2] + ', ' + inputValues[0]
+        const body = inputValues[0]
+            ? (inputValues[2] += ' - From ' + inputValues[0])
+            : inputValues[2]
         window.open(
             `mailto:TheaterOnlineInfo@gmail.com?subject=${subject}&body=${body}`
         )
