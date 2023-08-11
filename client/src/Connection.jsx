@@ -7,7 +7,7 @@ export default function Connection(props) {
     const location = useLocation()
     const movieInfo = location.state
 
-    const socket = socketIO.connect('http://localhost:4000')
+    const socket = socketIO.connect('https://showtime-service.onrender.com')
 
     useEffect(() => {
         socket.emit('joinRoom', {
