@@ -1,6 +1,6 @@
 import './style.css'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import Home from './Home.jsx'
 import Connection from './Connection.jsx'
 import titles from './titles.js'
@@ -8,7 +8,7 @@ import titles from './titles.js'
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
-    <BrowserRouter>
+    <HashRouter>
         <Routes>
             <Route exact path="/" element={<Home />} />
             {titles.map((movie, index) => (
@@ -20,5 +20,5 @@ root.render(
                 />
             ))}
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
 )
